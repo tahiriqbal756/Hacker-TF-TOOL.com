@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Hacking Toolkit</title>
+    <style>
+        body { background-color: #1e1e2f; color: #fff; font-family: Arial, sans-serif; text-align: center; transition: 0.5s; }
+        .hidden { display: none; }
+        button, input { padding: 10px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
+        .dark-mode { background-color: #1e1e2f; color: #00ff7f; }
+        .light-mode { background-color: #f0f0f0; color: #333; }
+        iframe { border: none; width: 80%; height: 400px; margin-top: 20px; display: none; }
+        #status { margin-top: 10px; color: #ffcc00; }
+        pre { background-color: #333; color: #00ff7f; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+
+<body>
+
+<h1>Ultimate Hacking Toolkit</h1>
+
+<!-- Secure Login -->
+<div id="login-section">
+    <h2>Login</h2>
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <br>
+    <button onclick="startListening()">🎙️ Voice Command</button>
+    <div id="status">Voice Command: Inactive</div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="hidden">
+    <h2>Dashboard</h2>
+    <button onclick="toggleSection('books')">📚 Hacking Books</button>
+    <button onclick="toggleSection('tools')">🛠️ Hacking Tools</button>
+    <button onclick="toggleSection('proxy')">🔗 Proxy Tools</button>
+    <button onclick="toggleSection('vpn')">🛡️ VPN Checker</button>
+    <button onclick="toggleSection('chatbot')">🤖 AI Chatbot</button>
+    <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    <button onclick="toggleSection('contact')">📞 Contact Us</button>
+</div>
+
+<!-- Sections -->
+<div id="books" class="hidden">
+    <h2>Hacking Books</h2>
+    <ul>
+        <li><a href="#">The Web Application Hacker's Handbook</a></li>
+        <li><a href="#">Black Hat Python</a></li>
+    </ul>
+</div>
+
+<div id="tools" class="hidden">
+    <h2>Hacking Tools</h2>
+    <ul>
+        <li><a href="#">Nmap</a></li>
+        <li><a href="#">SQLmap</a></li>
+    </ul>
+</div>
+
+<div id="proxy" class="hidden">
+    <h2>Proxy Tools</h2>
+    <ul>
+        <li><a href="#">ProxyChains</a></li>
+        <li><a href="#">Burp Suite</a></li>
+    </ul>
+</div>
+
+<div id="vpn" class="hidden">
+    <h2>VPN Checker</h2>
+    <input type="text" id="vpn-input" placeholder="Enter VPN IP">
+    <button onclick="checkVPN()">Check VPN</button>
+    <pre id="vpn-results">Enter an IP to check VPN status.</pre>
+</div>
+
+<div id="chatbot" class="hidden">
+    <h2>AI Chatbot</h2>
+    <iframe src="https://www.chatbase.co/chatbot-embed?api_key=YOUR_API_KEY" style="width: 100%; height: 500px;"></iframe>
+</div>
+
+<div id="contact" class="hidden">
+    <h2>Contact Us</h2>
+    <a href="https://wa.me/+923321709972">WhatsApp Us</a>
+</div>
+
+<script>
+    const correctPassword = "TF123";
+
+    function login() {
+        const password = document.getElementById('password').value;
+        if (password === correctPassword) {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+        } else {
+            alert("Incorrect Password!");
+        }
+    }
+
+    function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        section.classList.toggle('hidden');
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        document.body.classList.toggle('light-mode');
+    }
+
+    function checkVPN() {
+        const ip = document.getElementById('vpn-input').value;
+        if (ip) {
+            document.getElementById('vpn-results').textContent = `Checking VPN status for IP: ${ip}... (Demo Mode)`;
+        } else {
+            alert('Please enter a valid IP!');
+        }
+    }
+
+    function startListening() {
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+            document.getElementById('status').textContent = 'Listening... 🎙️';
+
+            recognition.onresult = function (event) {
+                const command = event.results[0][0].transcript.toLowerCase();
+                document.getElementById('status').textContent = `Command: ${command}`;
+                if (command.includes("open books")) toggleSection('books');
+                else if (command.includes("open tools")) toggleSection('tools');
+                else if (command.includes("open proxy")) toggleSection('proxy');
+                else if (command.includes("open vpn")) toggleSection('vpn');
+                else if (command.includes("open chatbot")) toggleSection('chatbot');
+                else if (command.includes("dark mode")) toggleDarkMode();
+                else speak("Sorry, I didn't understand.");
+            };
+        } else {
+            alert('Your browser does not support voice recognition!');
+        }
+    }
+
+    function speak(message) {
+        const speech = new SpeechSynthesisUtterance(message);
+        speech.lang = 'en-US';
+        window.speechSynthesis.speak(speech);
+    }
+</script>
+
+</body>
+</html>
