@@ -4,128 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Hacking Toolkit</title>
+    <title>Hacking Tools Hub - 1000 Animated Buttons</title>
     <style>
         body {
             background-color: #1e1e2f;
             color: #fff;
             font-family: Arial, sans-serif;
             text-align: center;
-            transition: 0.5s;
+            padding: 20px;
             animation: bgAnimation 10s infinite alternate;
         }
+
         @keyframes bgAnimation {
             0% { background-color: #1e1e2f; }
             50% { background-color: #2a2a3f; }
             100% { background-color: #1e1e2f; }
         }
-        .hidden { display: none; }
-        button, input {
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            max-height: 600px;
+            overflow-y: scroll;
+            border: 2px solid #00ff7f;
             padding: 10px;
-            margin: 5px;
-            border: none;
+            border-radius: 10px;
+        }
+
+        .animated-button {
+            padding: 10px;
+            border: 2px solid #00ff7f;
             border-radius: 5px;
+            background-color: transparent;
+            color: #00ff7f;
             cursor: pointer;
+            transition: 0.3s;
             animation: buttonGlow 2s infinite;
         }
+
+        .animated-button:hover {
+            background-color: #00ff7f;
+            color: #1e1e2f;
+        }
+
         @keyframes buttonGlow {
             0%, 100% { box-shadow: 0 0 10px #00ff7f; }
             50% { box-shadow: 0 0 20px #00ff7f; }
-        }
-        .tools-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            max-height: 500px;
-            overflow-y: scroll;
-        }
-        .tool-detail {
-            background-color: #2a2a3f;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 10px 0;
         }
     </style>
 </head>
 
 <body>
 
-<h1>Ultimate Hacking Toolkit</h1>
+<h1>🔥 1000 Hacking Tools Hub 🔥</h1>
+<p>Click any button to explore the tool!</p>
 
-<!-- Secure Login -->
-<div id="login-section">
-    <h2>Login</h2>
-    <input type="password" id="password" placeholder="Enter Password">
-    <button onclick="login()">Login</button>
-</div>
-
-<!-- Dashboard -->
-<div id="dashboard" class="hidden">
-    <h2>Dashboard</h2>
-    <button onclick="toggleSection('tools')">🛠️ Hacking Tools (100,000+)</button>
-    <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
-</div>
-
-<!-- Hacking Tools Section -->
-<div id="tools" class="hidden">
-    <h2>Hacking Tools (100,000+)</h2>
-    <div class="tools-list" id="toolsContainer">
-        <!-- Tools buttons will be generated here -->
-    </div>
-    <div id="toolDetail" class="tool-detail hidden"></div>
+<div class="button-container" id="buttonContainer">
+    <!-- Buttons will be generated here by JavaScript -->
 </div>
 
 <script>
-    const correctPassword = "TF123";
+    const buttonContainer = document.getElementById('buttonContainer');
 
-    function login() {
-        const password = document.getElementById('password').value;
-        if (password === correctPassword) {
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-        } else {
-            alert("Incorrect Password!");
-        }
-    }
-
-    function toggleSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        section.classList.toggle('hidden');
-    }
-
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        document.body.classList.toggle('light-mode');
-    }
-
-    // Hacking Tools Data
+    // Hacking Tools List (Example Tools)
     const tools = [
-        { name: "Nmap", description: "Network exploration and security auditing tool.", usage: "nmap -sP 192.168.1.0/24" },
-        { name: "Metasploit", description: "Penetration testing platform.", usage: "msfconsole" },
-        { name: "Hydra", description: "Password cracker tool.", usage: "hydra -l user -P passlist.txt ftp://target" },
-        { name: "Aircrack-ng", description: "Wi-Fi security auditing tool.", usage: "airmon-ng start wlan0" }
-        // Repeat similar objects for 100,000+ tools
+        "Nmap", "Metasploit", "Wireshark", "Aircrack-ng", "John the Ripper", "Hydra", "SQLmap", "Nikto", "Burp Suite",
+        "Netcat", "DirBuster", "Maltego", "BeEF", "SEToolkit", "Recon-ng", "Hashcat", "Snort", "OpenVAS", "Social-Engineer Toolkit",
+        "Armitage", "Ettercap", "Zenmap", "Fierce", "W3AF", "OWASP ZAP", "Hping3", "Skipfish", "Nikto", "Airodump-ng", 
+        "DNSRecon", "Responder", "Cain & Abel", "Hydra", "Yersinia", "Medusa", "ExploitDB", "THC-Hydra", "Nikto", "John the Ripper"
     ];
 
-    // Generate Unique Hacking Tools Buttons
-    const toolsContainer = document.getElementById('toolsContainer');
-    const toolDetail = document.getElementById('toolDetail');
+    // Fill remaining tools up to 1000
+    for (let i = tools.length + 1; i <= 1000; i++) {
+        tools.push(`Tool ${i}`);
+    }
 
+    // Generate Buttons
     tools.forEach((tool, index) => {
         const button = document.createElement('button');
-        button.textContent = tool.name;
-        button.onclick = () => showToolDetail(tool);
-        toolsContainer.appendChild(button);
+        button.className = 'animated-button';
+        button.textContent = tool;
+        button.onclick = () => alert(`You clicked on ${tool}!`);
+        buttonContainer.appendChild(button);
     });
-
-    function showToolDetail(tool) {
-        toolDetail.innerHTML = `
-            <h3>${tool.name}</h3>
-            <p><strong>Description:</strong> ${tool.description}</p>
-            <p><strong>Usage:</strong> <code>${tool.usage}</code></p>
-        `;
-        toolDetail.classList.remove('hidden');
-    }
 </script>
 
 </body>
