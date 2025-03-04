@@ -1,95 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacking Tools Hub - 1000 Animated Buttons</title>
-    <style>
-        body {
-            background-color: #1e1e2f;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            animation: bgAnimation 10s infinite alternate;
-        }
-
-        @keyframes bgAnimation {
-            0% { background-color: #1e1e2f; }
-            50% { background-color: #2a2a3f; }
-            100% { background-color: #1e1e2f; }
-        }
-
-        .button-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
-            max-width: 1200px;
-            margin: 0 auto;
-            max-height: 600px;
-            overflow-y: scroll;
-            border: 2px solid #00ff7f;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .animated-button {
-            padding: 10px;
-            border: 2px solid #00ff7f;
-            border-radius: 5px;
-            background-color: transparent;
-            color: #00ff7f;
-            cursor: pointer;
-            transition: 0.3s;
-            animation: buttonGlow 2s infinite;
-        }
-
-        .animated-button:hover {
-            background-color: #00ff7f;
-            color: #1e1e2f;
-        }
-
-        @keyframes buttonGlow {
-            0%, 100% { box-shadow: 0 0 10px #00ff7f; }
-            50% { box-shadow: 0 0 20px #00ff7f; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A Bot - 10,000 Sawalon ke Jawab!</title>
+<style>
+    body { background-color: #121212; color: #fff; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    .chat-box { max-width: 600px; margin: 20px auto; padding: 10px; border: 2px solid #333; border-radius: 10px; background-color: #1e1e1e; }
+    .input-box { width: 90%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #333; }
+    .button { padding: 5px 20px; border: none; background-color: #333; color: #fff; cursor: pointer; border-radius: 5px; margin-top: 5px; }
+    .button:hover { background-color: #555; }
+    .message { text-align: left; margin: 10px 0; }
+    .user { color: #76c7c0; }
+    .bot { color: #f77f00; }
+</style>
 </head>
-
 <body>
 
-<h1>🔥 1000 Hacking Tools Hub 🔥</h1>
-<p>Click any button to explore the tool!</p>
-
-<div class="button-container" id="buttonContainer">
-    <!-- Buttons will be generated here by JavaScript -->
+<h2>🤖 Q&A Bot - 10,000 Sawalon ke Jawab!</h2>
+<div class="chat-box" id="chat-box">
+    <div class="message bot">🤖 Bot: Mujhse kuch bhi pucho!</div>
 </div>
+<input class="input-box" id="user-input" type="text" placeholder="Apna sawal yahan likho..." />
+<button class="button" onclick="askQuestion()">Bhejo</button>
 
 <script>
-    const buttonContainer = document.getElementById('buttonContainer');
+// 🔥 10,000 sawalon ke jawab ka sample (JSON format)
+const qaData = {
+    "python kya hai?": "Python ek high-level programming language hai.",
+    "html kya hai?": "HTML web pages banane ke liye use hoti hai.",
+    "ai kya hai?": "AI machine ko insaan ki tarah sochne me madad karti hai.",
+    "hacking kya hai?": "Hacking unauthorized tarike se system access karna hai.",
+    "linux kya hai?": "Linux ek open-source operating system hai.",
+    // 🔥 Yahan par 10,000 sawal aur add kar sakte hain (ye sirf sample hain)
+};
 
-    // Hacking Tools List (Example Tools)
-    const tools = [
-        "Nmap", "Metasploit", "Wireshark", "Aircrack-ng", "John the Ripper", "Hydra", "SQLmap", "Nikto", "Burp Suite",
-        "Netcat", "DirBuster", "Maltego", "BeEF", "SEToolkit", "Recon-ng", "Hashcat", "Snort", "OpenVAS", "Social-Engineer Toolkit",
-        "Armitage", "Ettercap", "Zenmap", "Fierce", "W3AF", "OWASP ZAP", "Hping3", "Skipfish", "Nikto", "Airodump-ng", 
-        "DNSRecon", "Responder", "Cain & Abel", "Hydra", "Yersinia", "Medusa", "ExploitDB", "THC-Hydra", "Nikto", "John the Ripper"
-    ];
+// 🔥 Sawal ka jawab dene ka function
+function askQuestion() {
+    const userInput = document.getElementById("user-input").value.trim().toLowerCase();
+    if (userInput === "") return;
 
-    // Fill remaining tools up to 1000
-    for (let i = tools.length + 1; i <= 1000; i++) {
-        tools.push(`Tool ${i}`);
-    }
+    displayMessage(`👤 Tum: ${userInput}`, "user");
 
-    // Generate Buttons
-    tools.forEach((tool, index) => {
-        const button = document.createElement('button');
-        button.className = 'animated-button';
-        button.textContent = tool;
-        button.onclick = () => alert(`You clicked on ${tool}!`);
-        buttonContainer.appendChild(button);
-    });
+    // 🔥 JavaScript me search karna
+    const answer = qaData[userInput] || "Mujhe iska jawab nahi pata.";
+    displayMessage(`🤖 Bot: ${answer}`, "bot");
+    document.getElementById("user-input").value = "";
+}
+
+// 🔥 Message display karne ka function
+function displayMessage(text, sender) {
+    const chatBox = document.getElementById("chat-box");
+    const messageDiv = document.createElement("div");
+    messageDiv.className = `message ${sender}`;
+    messageDiv.innerHTML = text;
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;  // Auto-scroll
+}
 </script>
 
 </body>
