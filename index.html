@@ -1,62 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Q&A Bot - 10,000 Sawalon ke Jawab!</title>
+<title>Hacking Tools Collection - Unlimited Tools</title>
 <style>
     body { background-color: #121212; color: #fff; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-    .chat-box { max-width: 600px; margin: 20px auto; padding: 10px; border: 2px solid #333; border-radius: 10px; background-color: #1e1e1e; }
-    .input-box { width: 90%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #333; }
-    .button { padding: 5px 20px; border: none; background-color: #333; color: #fff; cursor: pointer; border-radius: 5px; margin-top: 5px; }
-    .button:hover { background-color: #555; }
-    .message { text-align: left; margin: 10px 0; }
-    .user { color: #76c7c0; }
-    .bot { color: #f77f00; }
+    .tool-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; max-width: 1200px; margin: 20px auto; }
+    .tool-button { padding: 10px; border: none; background-color: #333; color: #fff; cursor: pointer; border-radius: 5px; transition: all 0.3s ease; }
+    .tool-button:hover { background-color: #f77f00; transform: scale(1.1); }
+    .popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 100; }
+    .popup-content { background-color: #1e1e1e; padding: 20px; border-radius: 10px; max-width: 600px; text-align: left; }
+    .close-btn { float: right; cursor: pointer; color: #f77f00; }
+    .search-box { margin-bottom: 20px; }
+    .search-input { padding: 8px; width: 50%; border-radius: 5px; border: 1px solid #333; }
+    .mic-btn { background-color: #333; color: #fff; border: none; border-radius: 5px; padding: 5px; cursor: pointer; margin-left: 10px; }
 </style>
 </head>
+
 <body>
 
-<h2>🤖 Q&A Bot - 10,000 Sawalon ke Jawab!</h2>
-<div class="chat-box" id="chat-box">
-    <div class="message bot">🤖 Bot: Mujhse kuch bhi pucho!</div>
+<h2>🔥 Hacking Tools Collection - Unlimited Tools 🔥</h2>
+<div class="search-box">
+    <input class="search-input" id="search-input" type="text" placeholder="Search for a tool..." oninput="searchTool()">
+    <button class="mic-btn" onclick="startVoiceCommand()">🎤</button>
 </div>
-<input class="input-box" id="user-input" type="text" placeholder="Apna sawal yahan likho..." />
-<button class="button" onclick="askQuestion()">Bhejo</button>
+<div class="tool-box" id="tool-box"></div>
+
+<div class="popup" id="popup">
+    <div class="popup-content" id="popup-content">
+        <span class="close-btn" onclick="closePopup()">✖</span>
+        <h3 id="tool-name"></h3>
+        <p id="tool-description"></p>
+    </div>
+</div>
 
 <script>
-// 🔥 10,000 sawalon ke jawab ka sample (JSON format)
-const qaData = {
-    "python kya hai?": "Python ek high-level programming language hai.",
-    "html kya hai?": "HTML web pages banane ke liye use hoti hai.",
-    "ai kya hai?": "AI machine ko insaan ki tarah sochne me madad karti hai.",
-    "hacking kya hai?": "Hacking unauthorized tarike se system access karna hai.",
-    "linux kya hai?": "Linux ek open-source operating system hai.",
-    // 🔥 Yahan par 10,000 sawal aur add kar sakte hain (ye sirf sample hain)
-};
+// 🔥 Unlimited hacking tools ke liye empty array
+const tools = [];
 
-// 🔥 Sawal ka jawab dene ka function
-function askQuestion() {
-    const userInput = document.getElementById("user-input").value.trim().toLowerCase();
-    if (userInput === "") return;
-
-    displayMessage(`👤 Tum: ${userInput}`, "user");
-
-    // 🔥 JavaScript me search karna
-    const answer = qaData[userInput] || "Mujhe iska jawab nahi pata.";
-    displayMessage(`🤖 Bot: ${answer}`, "bot");
-    document.getElementById("user-input").value = "";
+// 🔥 Yahan unlimited tools add kar sakte hain
+for (let i = 1; i <= 100000; i++) {  // 1 lakh tools ke liye loop
+    tools.push({
+        name: `Hacking Tool ${i}`,
+        description: `This is a tutorial and usage guide for Hacking Tool ${i}. Learn how to use it for ethical hacking.`
+    });
 }
 
-// 🔥 Message display karne ka function
-function displayMessage(text, sender) {
-    const chatBox = document.getElementById("chat-box");
-    const messageDiv = document.createElement("div");
-    messageDiv.className = `message ${sender}`;
-    messageDiv.innerHTML = text;
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;  // Auto-scroll
+// 🔥 Tools ko display karne ka function
+function displayTools(filteredTools = tools) {
+    const toolBox = document.getElementById("tool-box");
+    toolBox.innerHTML = "";  // Purana data saaf karen
+    filteredTools.forEach(tool => {
+        const button = document.createElement("button");
+        button.className = "tool-button";
+        button.textContent = tool.name;
+        button.onclick = () => showToolDetails(tool);
+        toolBox.appendChild(button);
+    });
 }
+
+// 🔥 Tool ka detail dikhane ka function
+function showToolDetails(tool) {
+    document.getElementById("tool-name").textContent = tool.name;
+    document.getElementById("tool-description").textContent = tool.description;
+    document.getElementById("popup").style.display = "flex";
+}
+
+// 🔥 Popup close karne ka function
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+// 🔥 Tool search karne ka function
+function searchTool() {
+    const query = document.getElementById("search-input").value.toLowerCase();
+    const filteredTools = tools.filter(tool => tool.name.toLowerCase().includes(query));
+    displayTools(filteredTools);
+}
+
+// 🔥 Voice command se search karne ka function
+function startVoiceCommand() {
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("Your browser does not support voice commands!");
+        return;
+    }
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.onresult = function(event) {
+        const voiceInput = event.results[0][0].transcript.toLowerCase();
+        document.getElementById("search-input").value = voiceInput;
+        searchTool();
+    };
+    recognition.start();
+}
+
+// 🔥 Page load hote hi tools dikhayein
+displayTools();
 </script>
 
 </body>
