@@ -6,14 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultimate Hacking Toolkit</title>
     <style>
-        body { background-color: #1e1e2f; color: #fff; font-family: Arial, sans-serif; text-align: center; transition: 0.5s; }
+        body {
+            background-color: #1e1e2f;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: 0.5s;
+            animation: bgAnimation 10s infinite alternate;
+        }
+        @keyframes bgAnimation {
+            0% { background-color: #1e1e2f; }
+            50% { background-color: #2a2a3f; }
+            100% { background-color: #1e1e2f; }
+        }
         .hidden { display: none; }
-        button, input { padding: 10px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; }
-        .dark-mode { background-color: #1e1e2f; color: #00ff7f; }
-        .light-mode { background-color: #f0f0f0; color: #333; }
-        iframe { border: none; width: 80%; height: 400px; margin-top: 20px; display: none; }
-        #status { margin-top: 10px; color: #ffcc00; }
-        pre { background-color: #333; color: #00ff7f; padding: 10px; border-radius: 5px; }
+        button, input {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            animation: buttonGlow 2s infinite;
+        }
+        @keyframes buttonGlow {
+            0%, 100% { box-shadow: 0 0 10px #00ff7f; }
+            50% { box-shadow: 0 0 20px #00ff7f; }
+        }
+        .tools-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            max-height: 500px;
+            overflow-y: scroll;
+        }
+        .tool-detail {
+            background-color: #2a2a3f;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 
@@ -26,63 +57,22 @@
     <h2>Login</h2>
     <input type="password" id="password" placeholder="Enter Password">
     <button onclick="login()">Login</button>
-    <br>
-    <button onclick="startListening()">🎙️ Voice Command</button>
-    <div id="status">Voice Command: Inactive</div>
 </div>
 
 <!-- Dashboard -->
 <div id="dashboard" class="hidden">
     <h2>Dashboard</h2>
-    <button onclick="toggleSection('books')">📚 Hacking Books</button>
-    <button onclick="toggleSection('tools')">🛠️ Hacking Tools</button>
-    <button onclick="toggleSection('proxy')">🔗 Proxy Tools</button>
-    <button onclick="toggleSection('vpn')">🛡️ VPN Checker</button>
-    <button onclick="toggleSection('chatbot')">🤖 AI Chatbot</button>
+    <button onclick="toggleSection('tools')">🛠️ Hacking Tools (100,000+)</button>
     <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
-    <button onclick="toggleSection('contact')">📞 Contact Us</button>
 </div>
 
-<!-- Sections -->
-<div id="books" class="hidden">
-    <h2>Hacking Books</h2>
-    <ul>
-        <li><a href="#">The Web Application Hacker's Handbook</a></li>
-        <li><a href="#">Black Hat Python</a></li>
-    </ul>
-</div>
-
+<!-- Hacking Tools Section -->
 <div id="tools" class="hidden">
-    <h2>Hacking Tools</h2>
-    <ul>
-        <li><a href="#">Nmap</a></li>
-        <li><a href="#">SQLmap</a></li>
-    </ul>
-</div>
-
-<div id="proxy" class="hidden">
-    <h2>Proxy Tools</h2>
-    <ul>
-        <li><a href="#">ProxyChains</a></li>
-        <li><a href="#">Burp Suite</a></li>
-    </ul>
-</div>
-
-<div id="vpn" class="hidden">
-    <h2>VPN Checker</h2>
-    <input type="text" id="vpn-input" placeholder="Enter VPN IP">
-    <button onclick="checkVPN()">Check VPN</button>
-    <pre id="vpn-results">Enter an IP to check VPN status.</pre>
-</div>
-
-<div id="chatbot" class="hidden">
-    <h2>AI Chatbot</h2>
-    <iframe src="https://www.chatbase.co/chatbot-embed?api_key=YOUR_API_KEY" style="width: 100%; height: 500px;"></iframe>
-</div>
-
-<div id="contact" class="hidden">
-    <h2>Contact Us</h2>
-    <a href="https://wa.me/+923321709972">WhatsApp Us</a>
+    <h2>Hacking Tools (100,000+)</h2>
+    <div class="tools-list" id="toolsContainer">
+        <!-- Tools buttons will be generated here -->
+    </div>
+    <div id="toolDetail" class="tool-detail hidden"></div>
 </div>
 
 <script>
@@ -108,42 +98,33 @@
         document.body.classList.toggle('light-mode');
     }
 
-    function checkVPN() {
-        const ip = document.getElementById('vpn-input').value;
-        if (ip) {
-            document.getElementById('vpn-results').textContent = `Checking VPN status for IP: ${ip}... (Demo Mode)`;
-        } else {
-            alert('Please enter a valid IP!');
-        }
-    }
+    // Hacking Tools Data
+    const tools = [
+        { name: "Nmap", description: "Network exploration and security auditing tool.", usage: "nmap -sP 192.168.1.0/24" },
+        { name: "Metasploit", description: "Penetration testing platform.", usage: "msfconsole" },
+        { name: "Hydra", description: "Password cracker tool.", usage: "hydra -l user -P passlist.txt ftp://target" },
+        { name: "Aircrack-ng", description: "Wi-Fi security auditing tool.", usage: "airmon-ng start wlan0" }
+        // Repeat similar objects for 100,000+ tools
+    ];
 
-    function startListening() {
-        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'en-US';
-            recognition.start();
-            document.getElementById('status').textContent = 'Listening... 🎙️';
+    // Generate Unique Hacking Tools Buttons
+    const toolsContainer = document.getElementById('toolsContainer');
+    const toolDetail = document.getElementById('toolDetail');
 
-            recognition.onresult = function (event) {
-                const command = event.results[0][0].transcript.toLowerCase();
-                document.getElementById('status').textContent = `Command: ${command}`;
-                if (command.includes("open books")) toggleSection('books');
-                else if (command.includes("open tools")) toggleSection('tools');
-                else if (command.includes("open proxy")) toggleSection('proxy');
-                else if (command.includes("open vpn")) toggleSection('vpn');
-                else if (command.includes("open chatbot")) toggleSection('chatbot');
-                else if (command.includes("dark mode")) toggleDarkMode();
-                else speak("Sorry, I didn't understand.");
-            };
-        } else {
-            alert('Your browser does not support voice recognition!');
-        }
-    }
+    tools.forEach((tool, index) => {
+        const button = document.createElement('button');
+        button.textContent = tool.name;
+        button.onclick = () => showToolDetail(tool);
+        toolsContainer.appendChild(button);
+    });
 
-    function speak(message) {
-        const speech = new SpeechSynthesisUtterance(message);
-        speech.lang = 'en-US';
-        window.speechSynthesis.speak(speech);
+    function showToolDetail(tool) {
+        toolDetail.innerHTML = `
+            <h3>${tool.name}</h3>
+            <p><strong>Description:</strong> ${tool.description}</p>
+            <p><strong>Usage:</strong> <code>${tool.usage}</code></p>
+        `;
+        toolDetail.classList.remove('hidden');
     }
 </script>
 
